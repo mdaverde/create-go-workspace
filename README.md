@@ -1,19 +1,20 @@
 # create-go-workspace
 
-## Description
-
-CLI to generate the directory structure for go workspaces
+Simple CLI to generate the directory structure for go workspaces
 
 ## Usage
 
 ```bash
 $ create-go-workspace github.com/mdaverde/great-idea
 Creating github.com/mdaverde/great-idea workspace...
-Created: /Users/mdaverde/Development/great-idea/
-Created: /Users/mdaverde/Development/great-idea/src/
+Created: /Users/mdaverde/Development/great-idea
+Created: /Users/mdaverde/Development/great-idea/src
 Created: /Users/mdaverde/Development/great-idea/src/github.com/mdaverde/great-idea
 Created: /Users/mdaverde/Development/great-idea/bin
 Created: /Users/mdaverde/Development/great-idea/pkg
+Created: /Users/mdaverde/Development/great-idea/.envrc
+Created: /Users/mdaverde/Development/great-idea/src/github.com/mdaverde/great-idea/main.go
+Created: /Users/mdaverde/Development/great-idea/src/github.com/mdaverde/great-idea/README.md
 Done.
 ```
 
