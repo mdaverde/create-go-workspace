@@ -20,7 +20,11 @@ func main() {
 	app.Action = func (c *cli.Context) error {
 		if c.NArg() == 1 && c.NumFlags() == 0{
 			args := c.Args()
-			return createWorkspace(args[0])
+			return createWorkspace(args[0], &createWorkspaceOptions{
+				Silent: false,
+				DirEnv: true,
+				MainGo: true,
+			})
 		}
 		return nil
 	}

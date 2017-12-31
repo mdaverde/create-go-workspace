@@ -4,40 +4,79 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"io/ioutil"
 )
 
-func logf(args... interface{}) {
+type createWorkspaceOptions struct {
+	Silent bool
+	DirEnv bool
+	MainGo bool
+}
+
+func logf(silent bool, args... interface{}) {
+	if silent == true {
+		return
+	}
 	first := args[0]
 	if firstString, ok := first.(string); ok {
 		fmt.Printf(firstString, args[1:]...)
 	}
 }
 
-func workspaceDirPaths(rootDir, name string) []string {
-	_, postFinalSlash := path.Split(name)
-	parentDir := path.Join(rootDir, postFinalSlash)
-	return []string{
-		parentDir,
-		path.Join(parentDir, "src"),
-		path.Join(parentDir, "src", name),
-		path.Join(parentDir, "bin"),
-		path.Join(parentDir, "pkg"),
+func writeFiles(parentDir, projectDir string, options *createWorkspaceOptions) (err error) {
+	if options.DirEnv == true {
+		filePath := path.Join(parentDir, ".envrc")
+		err = ioutil.WriteFile(filePath, []byte(envrc()), os.ModePerm)
+		if err != nil {
+			return err
+		}
+		logf(options.Silent, "Created: %s\n", filePath)
 	}
+
+	if options.MainGo == true {
+		filePath := path.Join(projectDir, "main.go")
+		err = ioutil.WriteFile(filePath, []byte(mainGo()), os.ModePerm)
+		if err != nil {
+			return err
+		}
+		logf(options.Silent, "Created: %s\n", filePath)
+	}
+
+	return err
 }
 
-func createWorkspace(name string) error {
-	logf("Creating %s workspace...\n", name)
+func createWorkspace(projectName string, options *createWorkspaceOptions) error {
+	logf(options.Silent, "Creating %s workspace...\n", projectName)
 	workingDir, err := os.Getwd()
 	if err != nil {
 		return err
 	}
-	for _, dirPath := range workspaceDirPaths(workingDir, name) {
+
+	_, postFinalSlash := path.Split(projectName)
+	parentDir := path.Join(workingDir, postFinalSlash)
+	projectDir := path.Join(parentDir, "src", projectName)
+
+	workspaceDirPaths := []string{
+		parentDir,
+		path.Join(parentDir, "src"),
+		projectDir,
+		path.Join(parentDir, "bin"),
+		path.Join(parentDir, "pkg"),
+	}
+
+	for _, dirPath := range workspaceDirPaths {
 		if err = os.MkdirAll(dirPath, os.ModePerm); err != nil {
 			return err
 		}
-		logf("Created: %s\n", dirPath)
+		logf(options.Silent, "Created: %s\n", dirPath)
 	}
 
-	logf("Done.")
+	err = writeFiles(parentDir, projectDir, options)
+
+	if err != nil {
+		return err
+	}
+
+	logf(options.Silent, "Done.")
 	return nil
 }
