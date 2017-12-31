@@ -21,6 +21,7 @@ func main() {
 	var silent bool
 	var dirEnv bool
 	var mainGo bool
+	var readMe bool
 
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
@@ -35,6 +36,10 @@ func main() {
 			Name: "main-go",
 			Destination: &mainGo,
 		},
+		cli.BoolTFlag{
+			Name: "read-me",
+			Destination: &readMe,
+		},
 	}
 
 	app.Action = func (c *cli.Context) error {
@@ -44,6 +49,7 @@ func main() {
 				Silent: silent,
 				DirEnv: dirEnv,
 				MainGo: mainGo,
+				ReadMe: readMe,
 			})
 		} else if numArgs < 1 {
 			return errors.New("Provide a project name (i.e. github.com/mdaverde/great-idea)")

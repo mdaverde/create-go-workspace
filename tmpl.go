@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func envrc() string {
 	return "layout go"
 }
@@ -12,4 +14,8 @@ import "fmt"
 func main() {
 	fmt.Println("Hello World")
 }`
+}
+
+func readMe(title string) string{
+	return fmt.Sprintf("# %s", title)
 }

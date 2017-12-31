@@ -11,6 +11,7 @@ type createWorkspaceOptions struct {
 	Silent bool
 	DirEnv bool
 	MainGo bool
+	ReadMe bool
 }
 
 func logf(silent bool, args... interface{}) {
@@ -23,7 +24,7 @@ func logf(silent bool, args... interface{}) {
 	}
 }
 
-func writeFiles(parentDir, projectDir string, options *createWorkspaceOptions) (err error) {
+func writeFiles(parentDir, projectDir, projectName string, options *createWorkspaceOptions) (err error) {
 	if options.DirEnv == true {
 		filePath := path.Join(parentDir, ".envrc")
 		err = ioutil.WriteFile(filePath, []byte(envrc()), os.ModePerm)
@@ -42,19 +43,28 @@ func writeFiles(parentDir, projectDir string, options *createWorkspaceOptions) (
 		logf(options.Silent, "Created: %s\n", filePath)
 	}
 
+	if options.ReadMe == true {
+		filePath := path.Join(projectDir, "README.md")
+		err = ioutil.WriteFile(filePath, []byte(readMe(projectName)), os.ModePerm)
+		if err != nil {
+			return err
+		}
+		logf(options.Silent, "Created: %s\n", filePath)
+	}
+
 	return err
 }
 
-func createWorkspace(projectName string, options *createWorkspaceOptions) error {
-	logf(options.Silent, "Creating %s workspace...\n", projectName)
+func createWorkspace(projectRepo string, options *createWorkspaceOptions) error {
+	logf(options.Silent, "Creating %s workspace...\n", projectRepo)
 	workingDir, err := os.Getwd()
 	if err != nil {
 		return err
 	}
 
-	_, postFinalSlash := path.Split(projectName)
-	parentDir := path.Join(workingDir, postFinalSlash)
-	projectDir := path.Join(parentDir, "src", projectName)
+	_, projectName := path.Split(projectRepo)
+	parentDir := path.Join(workingDir, projectName)
+	projectDir := path.Join(parentDir, "src", projectRepo)
 
 	workspaceDirPaths := []string{
 		parentDir,
@@ -71,7 +81,7 @@ func createWorkspace(projectName string, options *createWorkspaceOptions) error 
 		logf(options.Silent, "Created: %s\n", dirPath)
 	}
 
-	err = writeFiles(parentDir, projectDir, options)
+	err = writeFiles(parentDir, projectDir, projectName, options)
 
 	if err != nil {
 		return err
