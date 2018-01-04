@@ -18,12 +18,40 @@ Created: /Users/mdaverde/Development/great-idea/src/github.com/mdaverde/great-id
 Done.
 ```
 
+## Directory Structure
+
+```bash
+$ tree great-idea
+great-idea
+├── bin
+├── pkg
+└── src
+    └── github.com
+        └── mdaverde
+            └── great-idea
+                ├── README.md
+                └── main.go
+
+6 directories, 2 files
+```
+
 ## Install
 
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/mdaverde/create-go-workspace
+$ go get -u github.com/mdaverde/create-go-workspace
+```
+
+## Options
+
+```
+--silent, -s   suppress output (default: false)
+--dir-env      generate .envrc (default: true)
+--main-go      generate main.go (default: true)
+--read-me      generate README.md (default: true)
+--help, -h     show help
+--version, -v  print the version
 ```
 
 
