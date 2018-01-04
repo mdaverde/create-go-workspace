@@ -21,8 +21,9 @@ Done.
 ## Directory Structure
 
 ```bash
-$ tree great-idea
+$ tree -a great-idea
 great-idea
+├── .envrc
 ├── bin
 ├── pkg
 └── src
@@ -32,7 +33,7 @@ great-idea
                 ├── README.md
                 └── main.go
 
-6 directories, 2 files
+6 directories, 3 files
 ```
 
 ## Install
