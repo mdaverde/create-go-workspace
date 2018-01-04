@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 )
 
+var writeFilePermission os.FileMode = 0644
+
 type createWorkspaceOptions struct {
 	Silent bool
 	DirEnv bool
@@ -27,7 +29,7 @@ func logf(silent bool, args... interface{}) {
 func writeFiles(parentDir, projectDir, projectName string, options *createWorkspaceOptions) (err error) {
 	if options.DirEnv == true {
 		filePath := path.Join(parentDir, ".envrc")
-		err = ioutil.WriteFile(filePath, []byte(envrc()), os.ModePerm)
+		err = ioutil.WriteFile(filePath, []byte(envrc()), writeFilePermission)
 		if err != nil {
 			return err
 		}
@@ -36,7 +38,7 @@ func writeFiles(parentDir, projectDir, projectName string, options *createWorksp
 
 	if options.MainGo == true {
 		filePath := path.Join(projectDir, "main.go")
-		err = ioutil.WriteFile(filePath, []byte(mainGo()), os.ModePerm)
+		err = ioutil.WriteFile(filePath, []byte(mainGo()), writeFilePermission)
 		if err != nil {
 			return err
 		}
@@ -45,7 +47,7 @@ func writeFiles(parentDir, projectDir, projectName string, options *createWorksp
 
 	if options.ReadMe == true {
 		filePath := path.Join(projectDir, "README.md")
-		err = ioutil.WriteFile(filePath, []byte(readMe(projectName)), os.ModePerm)
+		err = ioutil.WriteFile(filePath, []byte(readMe(projectName)), writeFilePermission)
 		if err != nil {
 			return err
 		}
