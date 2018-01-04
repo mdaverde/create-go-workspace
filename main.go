@@ -25,20 +25,24 @@ func main() {
 
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
-			Name: "silent",
+			Name: "silent, s",
 			Destination: &silent,
+			Usage: "suppress output (default: false)",
 		},
 		cli.BoolTFlag{
 			Name: "dir-env",
 			Destination: &dirEnv,
+			Usage: "generate .envrc (default: true)",
 		},
 		cli.BoolTFlag{
 			Name: "main-go",
 			Destination: &mainGo,
+			Usage: "generate main.go (default: true)",
 		},
 		cli.BoolTFlag{
 			Name: "read-me",
 			Destination: &readMe,
+			Usage: "generate README.md (default: true)",
 		},
 	}
 
