@@ -16,7 +16,11 @@ type createWorkspaceOptions struct {
 	ReadMe bool
 }
 
-func logf(silent bool, args ...interface{}) {
+var write = func(path, contents string) error {
+	return ioutil.WriteFile(path, []byte(contents), writeFilePermission)
+}
+
+var logf = func(silent bool, args ...interface{}) {
 	if silent == true {
 		return
 	}
@@ -29,7 +33,7 @@ func logf(silent bool, args ...interface{}) {
 func writeFiles(parentDir, projectDir, projectName string, options *createWorkspaceOptions) (err error) {
 	if options.DirEnv == true {
 		filePath := path.Join(parentDir, ".envrc")
-		err = ioutil.WriteFile(filePath, []byte(envrc()), writeFilePermission)
+		err = write(filePath, envrc())
 		if err != nil {
 			return err
 		}
@@ -38,7 +42,7 @@ func writeFiles(parentDir, projectDir, projectName string, options *createWorksp
 
 	if options.MainGo == true {
 		filePath := path.Join(projectDir, "main.go")
-		err = ioutil.WriteFile(filePath, []byte(mainGo()), writeFilePermission)
+		err = write(filePath, mainGo())
 		if err != nil {
 			return err
 		}
@@ -47,7 +51,7 @@ func writeFiles(parentDir, projectDir, projectName string, options *createWorksp
 
 	if options.ReadMe == true {
 		filePath := path.Join(projectDir, "README.md")
-		err = ioutil.WriteFile(filePath, []byte(readMe(projectName)), writeFilePermission)
+		err = write(filePath, readMe(projectName))
 		if err != nil {
 			return err
 		}
