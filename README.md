@@ -63,7 +63,7 @@ $ go get -u github.com/mdaverde/create-go-workspace
 1. Commit your changes
 1. Rebase your local changes against the master branch
 1. Run test suite with the `go test ./...` command and confirm that it passes
-1. Run `gofmt -s`
+1. Run `gofmt -w *.go`
 1. Create a new Pull Request
 
 

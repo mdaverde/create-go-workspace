@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/codegangsta/cli"
 	"fmt"
+	"github.com/codegangsta/cli"
 	"github.com/pkg/errors"
 )
 
@@ -25,31 +25,31 @@ func main() {
 
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
-			Name: "silent, s",
+			Name:        "silent, s",
 			Destination: &silent,
-			Usage: "suppress output (default: false)",
+			Usage:       "suppress output (default: false)",
 		},
 		cli.BoolTFlag{
-			Name: "dir-env",
+			Name:        "dir-env",
 			Destination: &dirEnv,
-			Usage: "generate .envrc (default: true)",
+			Usage:       "generate .envrc (default: true)",
 		},
 		cli.BoolTFlag{
-			Name: "main-go",
+			Name:        "main-go",
 			Destination: &mainGo,
-			Usage: "generate main.go (default: true)",
+			Usage:       "generate main.go (default: true)",
 		},
 		cli.BoolTFlag{
-			Name: "read-me",
+			Name:        "read-me",
 			Destination: &readMe,
-			Usage: "generate README.md (default: true)",
+			Usage:       "generate README.md (default: true)",
 		},
 	}
 
-	app.Action = func (c *cli.Context) error {
+	app.Action = func(c *cli.Context) error {
 		if numArgs := c.NArg(); numArgs > 0 {
 			args := c.Args()
-			return createWorkspace(args[numArgs - 1], &createWorkspaceOptions{
+			return createWorkspace(args[numArgs-1], &createWorkspaceOptions{
 				Silent: silent,
 				DirEnv: dirEnv,
 				MainGo: mainGo,
@@ -62,7 +62,7 @@ func main() {
 	}
 
 	app.Commands = Commands
-	app.CommandNotFound = func (c *cli.Context, command string) {
+	app.CommandNotFound = func(c *cli.Context, command string) {
 		fmt.Fprintf(os.Stderr, "%s: '%s' is not a %s command. See '%s --help'.", c.App.Name, command, c.App.Name, c.App.Name)
 		os.Exit(2)
 	}

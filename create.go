@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path"
-	"io/ioutil"
 )
 
 var writeFilePermission os.FileMode = 0644
@@ -16,7 +16,7 @@ type createWorkspaceOptions struct {
 	ReadMe bool
 }
 
-func logf(silent bool, args... interface{}) {
+func logf(silent bool, args ...interface{}) {
 	if silent == true {
 		return
 	}
