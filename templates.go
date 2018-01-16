@@ -16,6 +16,6 @@ func main() {
 }`
 }
 
-func readMe(title string) string{
+func readMe(title string) string {
 	return fmt.Sprintf("# %s", title)
 }

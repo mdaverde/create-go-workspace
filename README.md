@@ -1,6 +1,16 @@
-# create-go-workspace
+[![Build Status](https://travis-ci.org/mdaverde/create-go-workspace.svg?branch=master)](https://travis-ci.org/mdaverde/create-go-workspace)
 
-Simple CLI to generate the directory structure for go workspaces
+# create-go-workspace 
+
+Simple CLI to generate the directory structure for go workspaces.
+
+## Get started
+
+To install, use `go get`:
+
+```bash
+$ go get -u github.com/mdaverde/create-go-workspace
+```
 
 ## Usage
 
@@ -18,6 +28,14 @@ Created: /Users/mdaverde/Development/great-idea/src/github.com/mdaverde/great-id
 Done.
 ```
 
+## Generates
+
+- `src/`, `bin/`, `pkg/` directories
+- `main.go`
+- [.envrc](http://tammersaleh.com/posts/manage-your-gopath-with-direnv/) to manage setting $GOPATH
+- README.md
+
+
 ## Directory Structure
 
 ```bash
@@ -34,14 +52,6 @@ great-idea
                 └── main.go
 
 6 directories, 3 files
-```
-
-## Install
-
-To install, use `go get`:
-
-```bash
-$ go get -u github.com/mdaverde/create-go-workspace
 ```
 
 ## Options
@@ -63,7 +73,7 @@ $ go get -u github.com/mdaverde/create-go-workspace
 1. Commit your changes
 1. Rebase your local changes against the master branch
 1. Run test suite with the `go test ./...` command and confirm that it passes
-1. Run `gofmt -s`
+1. Run `gofmt -w *.go`
 1. Create a new Pull Request
 
 
