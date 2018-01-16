@@ -1,4 +1,6 @@
-# create-go-workspace
+[![Build Status](https://travis-ci.org/mdaverde/create-go-workspace.svg?branch=v0.2.1)](https://travis-ci.org/mdaverde/create-go-workspace)
+
+# create-go-workspace 
 
 Simple CLI to generate the directory structure for go workspaces.
 
