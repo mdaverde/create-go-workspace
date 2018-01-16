@@ -1,6 +1,14 @@
 # create-go-workspace
 
-Simple CLI to generate the directory structure for go workspaces
+Simple CLI to generate the directory structure for go workspaces.
+
+## Get started
+
+To install, use `go get`:
+
+```bash
+$ go get -u github.com/mdaverde/create-go-workspace
+```
 
 ## Usage
 
@@ -18,6 +26,14 @@ Created: /Users/mdaverde/Development/great-idea/src/github.com/mdaverde/great-id
 Done.
 ```
 
+## Generates
+
+- `src/`, `bin/`, `pkg/` directories
+- `main.go`
+- [.envrc](http://tammersaleh.com/posts/manage-your-gopath-with-direnv/) to manage setting $GOPATH
+- README.md
+
+
 ## Directory Structure
 
 ```bash
@@ -34,14 +50,6 @@ great-idea
                 └── main.go
 
 6 directories, 3 files
-```
-
-## Install
-
-To install, use `go get`:
-
-```bash
-$ go get -u github.com/mdaverde/create-go-workspace
 ```
 
 ## Options
